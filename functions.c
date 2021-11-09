@@ -3,6 +3,16 @@
 
 #include "functions.h"
 
+/*
+ 1-fonction d'initialisation
+ 2-fonction d'ajout au debut
+ 3-fonction de suppresssion au debut
+ 4-fonction d'affichage de la liste
+ 5-fonction d'ajout a la fin de la liste
+ */
+
+
+
 Liste *initialisationListe(int val) {
 	Liste *l;
 	Element *element;
@@ -71,4 +81,18 @@ void afficheListe(Liste *l) {
 		printf("\n valeur %d : %d ---- son adresse : %p\n",i+1,p->nombre,p);
         i++;
 	}
+}
+
+
+
+void ajout_fin(Liste *l, int val) {
+	Element *nouveau;
+	nouveau = (Element*)malloc(sizeof(Element));
+	if(!nouveau) {
+		exit(-1);
+	}
+	nouveau->suivant= NULL;
+	nouveau->nombre = val;
+	l->dernier->suivant = nouveau;
+	l->dernier = nouveau;
 }

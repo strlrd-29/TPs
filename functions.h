@@ -13,7 +13,13 @@ struct Liste{
 };
 
 
+//--- fonctions demandees ---
+
 Liste *initialisationListe(int val);
 void ajout_deb(Liste *l, int val);
 void supp_deb(Liste *l);
 void afficheListe(Liste *l);
+
+//--- fonctions en plus ---
+
+void ajout_fin(Liste *l, int val);
