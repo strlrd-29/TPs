@@ -31,6 +31,9 @@ void verifieListe(Liste *l, char res) {
  4-fonction d'affichage de la liste
  5-fonction d'ajout a la fin de la liste
  6-fonction de suppresssion de la fin
+ 7-fonction d'ajout dans un certain rang
+ 8-fonction de suppression dans un certain rang
+ 9-fonction de suppression d'une certaine valeur
  */
 
 
@@ -187,5 +190,28 @@ void supp_milieu(Liste *l, int rang) {
 		}
 		precedent->suivant = courant->suivant;
 		free(courant);
+	}
+}
+
+
+void supp_val(Liste *l, int val) {
+	int existe,i=1,rang;
+	Element *p;
+
+	for(p = l->premier; p!=NULL; p=p->suivant) {
+		if(p->nombre == val) {
+			existe = 1;
+			rang=i;
+			break;
+		}else {
+			existe = 0;
+			i++;
+		}
+	}
+	if(existe) {
+		supp_milieu(l, rang);
+	}else {
+		printf("La valeur que vous chercher n'existe pas :(\n");
+		exit(-1);
 	}
 }

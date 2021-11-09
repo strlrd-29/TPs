@@ -27,3 +27,4 @@ void supp_fin(Liste *l);
 
 void ajout_milieu(Liste *l, int rang, int val);
 void supp_milieu(Liste *l, int rang);
+void supp_val(Liste *l, int val);
