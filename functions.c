@@ -32,3 +32,28 @@ void ajout_deb(Liste *l, int val) {
 	nouveau->suivant = l->premier;
 	l->premier = nouveau;
 }
+
+
+void supp_deb(Liste *l) {
+	char res;
+	Element *supp;
+	if(l == NULL) {
+		printf("La liste ne contiet aucun element!!\n");
+		exit(-1);
+	}
+	if(l->premier == l->dernier) {
+		printf("La liste chainee contiet un seul element voulez vous vraiment supprimer ?(y/n)\n");
+		scanf("%c",&res);
+		switch (res) {
+			case 'y':
+				printf("OK !!\n");
+				break;
+			case 'n':
+				exit(-1);
+				break;
+		}
+	}
+		supp = l->premier;
+		l->premier = l->premier->suivant;
+		free(supp);
+}
