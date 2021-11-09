@@ -23,3 +23,4 @@ void afficheListe(Liste *l);
 //--- fonctions en plus ---
 
 void ajout_fin(Liste *l, int val);
+void supp_fin(Liste *l);

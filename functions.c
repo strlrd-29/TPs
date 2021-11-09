@@ -3,6 +3,27 @@
 
 #include "functions.h"
 
+
+void verifieListe(Liste *l, char res) {
+	if(l == NULL) {
+		printf("La liste ne contiet aucun element!!\n");
+		exit(-1);
+	}
+	if(l->premier == l->dernier) {
+		printf("La liste chainee contiet un seul element voulez vous vraiment supprimer ?(y/n)\n");
+		scanf("%c",&res);
+		switch (res) {
+			case 'y':
+				printf("OK !!\n");
+				break;
+			case 'n':
+				exit(-1);
+				break;
+		}
+	}
+}
+
+
 /*
  1-fonction d'initialisation
  2-fonction d'ajout au debut
@@ -47,25 +68,11 @@ void ajout_deb(Liste *l, int val) {
 void supp_deb(Liste *l) {
 	char res;
 	Element *supp;
-	if(l == NULL) {
-		printf("La liste ne contiet aucun element!!\n");
-		exit(-1);
-	}
-	if(l->premier == l->dernier) {
-		printf("La liste chainee contiet un seul element voulez vous vraiment supprimer ?(y/n)\n");
-		scanf("%c",&res);
-		switch (res) {
-			case 'y':
-				printf("OK !!\n");
-				break;
-			case 'n':
-				exit(-1);
-				break;
-		}
-	}
-		supp = l->premier;
-		l->premier = l->premier->suivant;
-		free(supp);
+	verifieListe(l,res);
+
+	supp = l->premier;
+	l->premier = l->premier->suivant;
+	free(supp);
 }
 
 
@@ -95,4 +102,21 @@ void ajout_fin(Liste *l, int val) {
 	nouveau->nombre = val;
 	l->dernier->suivant = nouveau;
 	l->dernier = nouveau;
+}
+
+
+void supp_fin(Liste *l) {
+	Element *courant;
+	Element *precedent;
+	char res;
+	verifieListe(l,res);		
+
+	courant = l->premier;
+	while(courant->suivant) {
+		precedent = courant;
+		courant = courant->suivant;		
+	}
+	precedent->suivant = NULL;
+	l->dernier = precedent;
+	free(courant);
 }
