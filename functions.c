@@ -17,4 +17,18 @@ Liste *initialisationListe(int val) {
 	element->suivant = NULL;
 	l->premier = element;
 	l->dernier = element;
+
+	return l;
+}
+
+
+void ajout_deb(Liste *l, int val) {
+	Element *nouveau;
+	nouveau = (Element*)malloc(sizeof(Element));
+	if(!nouveau) {
+		exit(-1);
+	}
+	nouveau->nombre = val;
+	nouveau->suivant = l->premier;
+	l->premier = nouveau;
 }
