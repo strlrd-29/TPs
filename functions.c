@@ -30,8 +30,8 @@ void verifieListe(Liste *l, char res) {
  3-fonction de suppresssion au debut
  4-fonction d'affichage de la liste
  5-fonction d'ajout a la fin de la liste
+ 6-fonction de suppresssion de la fin
  */
-
 
 
 Liste *initialisationListe(int val) {
@@ -119,4 +119,44 @@ void supp_fin(Liste *l) {
 	precedent->suivant = NULL;
 	l->dernier = precedent;
 	free(courant);
+}
+
+void ajout_milieu(Liste *l, int rang, int val){
+	int taille = 0,i = 1;
+	Element *nouveau;
+	Element *courant;
+	Element *precedent;
+	Element *p;
+
+	nouveau = (Element*)malloc(sizeof(Element));
+	if(!nouveau) {
+		exit(-1);
+	}
+	//calcul de la taille de la liste chainne
+	for(p = l->premier; p!=NULL; p = p->suivant) {
+		taille++;
+	}
+	
+
+	//verifier si le rang depace la taille du tableau
+	if(rang > taille+1) {
+		printf("Ce rang n'existe pas \n");
+		exit(-1);
+	}
+
+	if(rang == 1) {
+		ajout_deb(l, val);
+	}else if(rang == taille+1) {
+		ajout_fin(l, val);
+	}else {
+		courant = l->premier;
+		while(i<rang) {
+			precedent = courant;
+			courant = courant->suivant;
+			i++;
+		}
+		nouveau->nombre = val;
+		precedent->suivant = nouveau;
+		nouveau->suivant = courant;
+	}
 }
