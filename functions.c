@@ -57,3 +57,18 @@ void supp_deb(Liste *l) {
 		l->premier = l->premier->suivant;
 		free(supp);
 }
+
+
+void afficheListe(Liste *l) {
+	Element *p;
+	int i = 0;
+	
+	if(l == NULL) {
+		printf("La liste est vide\n");
+		exit(1);
+	}
+	for(p = l->premier; p!=NULL; p = p->suivant) {
+		printf("\n valeur %d : %d ---- son adresse : %p\n",i+1,p->nombre,p);
+        i++;
+	}
+}

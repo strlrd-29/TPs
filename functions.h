@@ -16,3 +16,4 @@ struct Liste{
 Liste *initialisationListe(int val);
 void ajout_deb(Liste *l, int val);
 void supp_deb(Liste *l);
+void afficheListe(Liste *l);
