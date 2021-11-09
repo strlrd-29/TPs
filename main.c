@@ -29,9 +29,9 @@ int main() {
 	afficheListe(l);
 
 	//ajout milieu de la liste
-	ajout_milieu(l, 10, 100);
-
-	printf("La liste apres l'ajout au rang 5 : \n");
+	ajout_milieu(l, 6, 100);
+	supp_milieu(l,3);
+	printf("Le nouveau affichage : \n");
 	afficheListe(l);
 	
 	return 0;

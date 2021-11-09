@@ -121,6 +121,7 @@ void supp_fin(Liste *l) {
 	free(courant);
 }
 
+
 void ajout_milieu(Liste *l, int rang, int val){
 	int taille = 0,i = 1;
 	Element *nouveau;
@@ -158,5 +159,33 @@ void ajout_milieu(Liste *l, int rang, int val){
 		nouveau->nombre = val;
 		precedent->suivant = nouveau;
 		nouveau->suivant = courant;
+	}
+}
+
+
+void supp_milieu(Liste *l, int rang) {
+	int taille=0, i=1;
+	Element *courant;
+	Element *precedent;
+	Element *p;
+	
+	for(p = l->premier; p!=NULL; p = p->suivant) {
+		taille++;
+	}
+
+
+	if(rang == 1) {
+		supp_deb(l);
+	}else if(rang == taille) {
+		supp_fin(l);
+	}else {
+		courant = l->premier;
+		while(i<rang) {
+			precedent = courant;
+			courant = courant->suivant;
+			i++;
+		}
+		precedent->suivant = courant->suivant;
+		free(courant);
 	}
 }
