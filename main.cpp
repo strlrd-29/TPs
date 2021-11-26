@@ -2,7 +2,8 @@
 #include <vector>
 
 using namespace std;
-
+/* Definition des differentes structures */
+// note
 struct note {
   int MAXIMUM_GRADE = 20;
   double value;
@@ -10,6 +11,33 @@ struct note {
 
 typedef note Note;
 
+// resultat
+struct result {
+  string module;
+  Note lanote;
+};
+
+typedef result Result;
+
+// student
+struct student {
+  string firstName;
+  string lastName;
+  vector<Result> results;
+};
+
+typedef student Student;
+
+// promotion
+struct promotion {
+  string name;
+  vector<Student> students;
+};
+
+typedef promotion Promotion;
+
+/* Fonctions */
+// fonction sur la structure Note
 double getValue(Note note) { return note.value; }
 
 Note note_moyeene(vector<Note> notes) {
@@ -22,23 +50,9 @@ Note note_moyeene(vector<Note> notes) {
   return noteMoyenne;
 }
 
-struct result {
-  string module;
-  Note lanote;
-};
-
-typedef result Result;
-
 Note getNote(Result res) { return res.lanote; }
 
-struct student {
-  string firstName;
-  string lastName;
-  vector<Result> results;
-};
-
-typedef student Student;
-
+// fonctions sur la structure Resultat
 void addResult(string module, Note note, vector<Result> &results) {
   Result newRes;
   newRes.module = module;
@@ -46,6 +60,7 @@ void addResult(string module, Note note, vector<Result> &results) {
   results.push_back(newRes);
 }
 
+// fonction sur la structure student
 vector<Note> getNotes(Student student) {
   vector<Note> notes;
   for (int i = 0; i < student.results.size(); i++) {
@@ -67,13 +82,7 @@ void printResult(Student student) {
   cout << "La note moyenne est : " << averageNote(student) << endl;
 }
 
-struct promotion {
-  string name;
-  vector<Student> students;
-};
-
-typedef promotion Promotion;
-
+// fonction sur la structure promotion
 void addStudent(promotion &promo, Student student) {
   promo.students.push_back(student);
 }
@@ -88,6 +97,7 @@ void printStudentResults(Promotion promo) {
   }
 }
 
+// main function
 int main() {
 
   Promotion promo;
