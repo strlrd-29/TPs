@@ -3,17 +3,24 @@
 #include <vector>
 
 using namespace std;
-/* Definition des differentes structures */
-// note
 
+// definitions des differentes class
+
+// la classe Note
 class Note {
-
   int MAXIMUM_GRADE = 20;
   double value;
 
 public:
+  // methodes
+
+  // avoir la valeur
   double getValue() { return value; };
+
+  // modifier la valeur
   void setValue(double val) { value = val; }
+
+  // retourner la note moyenne d'une liste de notes
   Note note_moyeene(vector<Note> notes) {
     Note noteMoyenne;
     double somme;
@@ -25,28 +32,46 @@ public:
   }
 };
 
+// classe result
 class Result {
   string module;
   Note lanote;
 
 public:
-  void setModule(string p_module) { module = p_module; };
+  // methodes
+
+  // avoir le nom du module
   string getModule() { return module; }
+
+  // modifier le nom du module
+  void setModule(string p_module) { module = p_module; };
+
+  // avoir la note
   Note getNote() { return lanote; }
+
+  // modifier la note
   void setNote(Note note) { lanote = note; }
 };
 
+// classe Student
 class Student {
   string firstName;
   string lastName;
   vector<Result> results;
 
 public:
+  // methodes
+  // lastName
   void setFirstName(string fn) { firstName = fn; }
   void setLastName(string ln) { lastName = ln; }
+  // lastName
   string getFirstName() { return firstName; }
   string getLastName() { return lastName; }
+
+  // Retourner une liste de tous les resultats de l'etudiant
   vector<Result> getResults() { return results; }
+
+  // avoir toutes la liste des note de l'etudiant
   vector<Note> getNotes() {
     vector<Note> notes;
     for (int i = 0; i < results.size(); i++) {
@@ -55,6 +80,7 @@ public:
     return notes;
   }
 
+  // ajouter un resultat a la liste des resultat
   void addResult(string pModule, Note note) {
     Result newRes;
     newRes.setModule(pModule);
@@ -62,11 +88,13 @@ public:
     results.push_back(newRes);
   }
 
+  // avoir la note moyenne
   double averageNote() {
     Note note;
     return note.note_moyeene(getNotes()).getValue();
   }
 
+  // affichage des resultats de l'etudiant
   void printResult() {
     vector<Result> res = getResults();
     cout << getLastName() + " " + getFirstName() << endl;
@@ -78,15 +106,24 @@ public:
   }
 };
 
+// clasee Promotion
 class Promotion {
   string name;
   vector<Student> students;
 
 public:
+  // methodes
+
+  // avoir le nom du dpt
   string getName() { return name; }
+
+  // avoir la liste des etudiants
   vector<Student> getStudents() { return students; }
+
+  // ajouter un etudiant aux dpt
   void addStudent(Student student) { students.push_back(student); }
 
+  // afficher les resultat de tous les etudiants
   void printStudentResults() {
     cout << getName() << endl;
     vector<Student> students = getStudents();
