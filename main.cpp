@@ -1,101 +1,102 @@
 #include <iostream>
+#include <string>
 #include <vector>
 
 using namespace std;
 /* Definition des differentes structures */
 // note
-struct note {
+
+class Note {
+
   int MAXIMUM_GRADE = 20;
   double value;
+
+public:
+  double getValue() { return value; };
+  void setValue(double val) { value = val; }
+  Note note_moyeene(vector<Note> notes) {
+    Note noteMoyenne;
+    double somme;
+    for (int i = 0; i < notes.size(); i++) {
+      somme += notes[i].getValue();
+    }
+    noteMoyenne.setValue(somme / notes.size());
+    return noteMoyenne;
+  }
 };
 
-typedef note Note;
-
-// resultat
-struct result {
+class Result {
   string module;
   Note lanote;
+
+public:
+  void setModule(string p_module) { module = p_module; };
+  string getModule() { return module; }
+  Note getNote() { return lanote; }
+  void setNote(Note note) { lanote = note; }
 };
 
-typedef result Result;
-
-// student
-struct student {
+class Student {
   string firstName;
   string lastName;
   vector<Result> results;
+
+public:
+  void setFirstName(string fn) { firstName = fn; }
+  void setLastName(string ln) { lastName = ln; }
+  string getFirstName() { return firstName; }
+  string getLastName() { return lastName; }
+  vector<Result> getResults() { return results; }
+  vector<Note> getNotes() {
+    vector<Note> notes;
+    for (int i = 0; i < results.size(); i++) {
+      notes.push_back(results[i].getNote());
+    }
+    return notes;
+  }
+
+  void addResult(string pModule, Note note) {
+    Result newRes;
+    newRes.setModule(pModule);
+    newRes.setNote(note);
+    results.push_back(newRes);
+  }
+
+  double averageNote() {
+    Note note;
+    return note.note_moyeene(getNotes()).getValue();
+  }
+
+  void printResult() {
+    vector<Result> res = getResults();
+    cout << getLastName() + " " + getFirstName() << endl;
+    for (int i = 0; i < res.size(); i++) {
+      cout << res[i].getModule() << " : " << res[i].getNote().getValue()
+           << endl;
+    }
+    cout << "La note moyenne est : " << averageNote() << endl;
+  }
 };
 
-typedef student Student;
-
-// promotion
-struct promotion {
+class Promotion {
   string name;
   vector<Student> students;
+
+public:
+  string getName() { return name; }
+  vector<Student> getStudents() { return students; }
+  void addStudent(Student student) { students.push_back(student); }
+
+  void printStudentResults() {
+    cout << getName() << endl;
+    vector<Student> students = getStudents();
+
+    for (int i = 0; i < students.size(); i++) {
+      students[i].printResult();
+      cout << endl;
+    }
+  }
 };
-
-typedef promotion Promotion;
-
-/* Fonctions */
-// fonction sur la structure Note
-double getValue(Note note) { return note.value; }
-
-Note note_moyeene(vector<Note> notes) {
-  Note noteMoyenne;
-  double somme;
-  for (int i = 0; i < notes.size(); i++) {
-    somme += notes[i].value;
-  }
-  noteMoyenne.value = somme / notes.size();
-  return noteMoyenne;
-}
-
-Note getNote(Result res) { return res.lanote; }
-
-// fonctions sur la structure Resultat
-void addResult(string module, Note note, vector<Result> &results) {
-  Result newRes;
-  newRes.module = module;
-  newRes.lanote = note;
-  results.push_back(newRes);
-}
-
-// fonction sur la structure student
-vector<Note> getNotes(Student student) {
-  vector<Note> notes;
-  for (int i = 0; i < student.results.size(); i++) {
-    notes.push_back(student.results[i].lanote);
-  }
-  return notes;
-}
-
-double averageNote(Student student) {
-  return note_moyeene(getNotes(student)).value;
-}
-
-void printResult(Student student) {
-  cout << student.lastName + " " + student.firstName << endl;
-  for (int i = 0; i < student.results.size(); i++) {
-    cout << student.results[i].module << " : "
-         << student.results[i].lanote.value << endl;
-  }
-  cout << "La note moyenne est : " << averageNote(student) << endl;
-}
-
-// fonction sur la structure promotion
-void addStudent(promotion &promo, Student student) {
-  promo.students.push_back(student);
-}
-
-vector<Student> getStudents(Promotion promo) { return promo.students; }
-
-void printStudentResults(Promotion promo) {
-  cout << promo.name << endl;
-  for (int i = 0; i < promo.students.size(); i++) {
-    printResult(promo.students[i]);
-    cout << endl;
-  }
-}
 
 // main function
 int main() {
@@ -103,25 +104,25 @@ int main() {
   Promotion promo;
   vector<Student> students;
   Student student1;
-  student1.firstName = "Ouassim Abdelmalek";
-  student1.lastName = "Ghribi";
+  student1.setFirstName("Ouassim Abdelmalek");
+  student1.setLastName("Ghribi");
   Note note11;
-  note11.value = 16;
+  note11.setValue(13.4);
   Note note12;
-  note12.value = 13;
-  addResult("math", note11, student1.results);
-  addResult("info", note12, student1.results);
+  note12.setValue(15.2);
+  student1.addResult("math", note11);
+  student1.addResult("info", note12);
   Student student2;
-  student2.firstName = "Paul";
-  student2.lastName = "Calcul";
+  student2.setFirstName("Paul");
+  student2.setLastName("Calcul");
   Note note21;
-  note21.value = 12;
+  note21.setValue(12.75);
   Note note22;
-  note22.value = 17;
-  addResult("Programmation 2", note21, student2.results);
-  addResult("TNS", note22, student2.results);
-  addStudent(promo, student1);
-  addStudent(promo, student2);
-  printStudentResults(promo);
+  note22.setValue(17.1);
+  student2.addResult("Programmation 2", note21);
+  student2.addResult("TNS", note22);
+  promo.addStudent(student1);
+  promo.addStudent(student2);
+  promo.printStudentResults();
   return 0;
 }
